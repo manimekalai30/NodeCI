@@ -1,0 +1,41 @@
+name: A workflow for Node CI
+
+on:
+  pull_request:
+    types: [closed]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build Application
+        run: |
+          npm install
+          npm run build
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04]
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test Application
+        run: |
+          npm install
+          npm run test
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04]
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test lint
+        run: |
+          npm install
+          npm run lint
