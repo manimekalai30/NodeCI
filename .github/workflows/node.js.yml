@@ -1,41 +1,49 @@
-name: A workflow for Node CI
-
+name: Publish a package
 on:
-  pull_request:
-    types: [closed]
+  push:
 jobs:
-  build:
+  run-npm-build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x]
     steps:
       - uses: actions/checkout@v1
-      - name: Build Application
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on ubuntu-latest
+          path: ~/.npm
+          key: ${{ runner.os }}-build-cache-node-modules
+          restore-keys: |
+            ${{ runner.os }}-build-cache-node-modules
+
+      - name: Install Dependencies
         run: |
-          npm install
+          npm ci
+
+      - name: Build
+        run: |
           npm run build
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-16.04, ubuntu-18.04]
-        node-version: [12.x]
-    steps:
-      - uses: actions/checkout@v1
-      - name: Test Application
+
+      - name: Test
         run: |
-          npm install
           npm run test
-  lint:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-16.04, ubuntu-18.04]
-        node-version: [12.x]
-    steps:
-      - uses: actions/checkout@v1
-      - name: Test lint
+
+      - name: Lint
         run: |
-          npm install
           npm run lint
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@manimekalai30'
+
+      - name: Publish package
+        run: |
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
