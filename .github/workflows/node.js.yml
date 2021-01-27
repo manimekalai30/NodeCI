@@ -21,7 +21,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          echo //npm.pkg.github.com/:_authToken=2e94eebbcb8302a4d74d628625609a29251ff083 >> ~/.npmrc
+          echo //npm.pkg.github.com/:_authToken=ad8c0c655f63b73df9416ef874c609347af8c6e6 >> ~/.npmrc
           npm install
 
 #       - name: Build
