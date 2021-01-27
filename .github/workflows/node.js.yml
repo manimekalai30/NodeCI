@@ -21,9 +21,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          echo //npm.pkg.github.com/:_authToken=2e94eebbcb8302a4d74d628625609a29251ff083 >> ~/.npmrc
           npm ci
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #       - name: Build
 #         run: |
