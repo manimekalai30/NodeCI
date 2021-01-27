@@ -1,18 +1,18 @@
 {
-  "name": "@manimekalai30/arithmetic-operations",
-  "version": "1.0.4",
+  "name": "@adaptavant/arithmetic-operations",
+  "version": "1.0.3",
   "description": "A simple module to do some arithmetic operations. This npm packages developed while learning about the npm packages.",
   "main": "index.js",
-  "homepage": "https://github.com/manimekalai30/arithmetic-operations",
+  "homepage": "https://github.com/Manimekalai-Devaraj/arithmetic-operations",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manimekalai30/arithmetic-operations"
+    "url": "git+https://github.com/Manimekalai-Devaraj/arithmetic-operations"
+  },
+  "dependencies": {
+    "@adaptavant/aw-metrics-api-js-client": "1.0.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies":{
-    "@manimekalai30/arithmetic-operations": "1.0.4"
   },
   "keywords": [
     "github",
