@@ -2,10 +2,10 @@ name: Publish a package
 on:
   pull_request:
     types: [closed]
-    branches: [main]
+    branches: [master]
 jobs:
   run-build-test-lint-publish-package:
-    if: github.event_name == 'pull_request' && github.event.action == 'merged' && github.event.pull_request.base.ref == 'main'
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
     runs-on: ubuntu-latest
     strategy:
       matrix:
