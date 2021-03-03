@@ -1,8 +1,11 @@
 name: Publish a package
 on:
-  push:
+  pull_request:
+    types: [closed]
+    branches: [master]
 jobs:
-  run-npm-build-test-lint-publish:
+  run-build-test-lint-publish-package:
+    if: github.event_name == 'pull_request' && github.event.action == 'merged' && github.event.pull_request.base.ref == 'master'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -10,40 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          # npm cache files are stored in `~/.npm` on ubuntu-latest
-          path: ~/.npm
-          key: ${{ runner.os }}-build-cache-node-modules
-          restore-keys: |
-            ${{ runner.os }}-build-cache-node-modules
+          node-version: '12'
 
-      - name: Install Dependencies
+      - name: Test
         run: |
-          echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} >> ~/.npmrc
-          npm install
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-#       - name: Build
-#         run: |
-#           npm run build
-
-#       - name: Test
-#         run: |
-#           npm run test
-
-#       - name: Lint
-#         run: |
-#           npm run lint
-
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-          registry-url: 'https://npm.pkg.github.com'
-          # Defaults to the user or organization that owns the workflow file
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          printenv
