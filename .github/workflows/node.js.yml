@@ -28,4 +28,4 @@ jobs:
         run: |
           echo steps.is-published.outputs.published
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
