@@ -20,12 +20,11 @@ jobs:
         run: |
           printenv
           
-      - name: Get package published or not
+      - name: Get package History
         uses: flood-io/is-published-on-npm@v1
-        id: is-published
-        
-      - name: Check version
+        id: isPublished
+
+      - if: ${{ steps.isPublished.outputs.published}} == 'false'
+        name: Print
         run: |
-          echo steps.is-published.outputs.published
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         echo ${{ steps.isPublished.outputs.published}}
