@@ -22,6 +22,8 @@ jobs:
           
       - name: Check package version
         uses: PostHog/check-package-version@v2
+        with:
+          path: package.json
         id: CheckVersion
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
