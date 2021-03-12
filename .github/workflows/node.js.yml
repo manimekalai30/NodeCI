@@ -20,19 +20,12 @@ jobs:
         run: |
           printenv
           
-      - name: Check package version
-        uses: PostHog/check-package-version@v2
-        with:
-          path: .
-        id: CheckVersion
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Get package published or not
+        uses: flood-io/is-published-on-npm@v1
+        id: is-published
         
-      - name: Echo output
+      - name: Check version
         run: |
-            echo "Committed version: ${{ steps.CheckVersion.outputs.committed-version }}"
-            echo "Published version: ${{ steps.CheckVersion.outputs.published-version }}"
-            echo "Is new version: ${{ steps.CheckVersion.outputs.is-new-version }}"
+          echo steps.is-published.outputs.published
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
