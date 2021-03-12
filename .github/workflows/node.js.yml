@@ -1,8 +1,6 @@
 name: Publish a package
 on:
-  pull_request:
-    types: [closed]
-    branches: [main]
+  push:
 jobs:
   run-build-test-lint-publish-package:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.base.ref == 'main'
@@ -21,3 +19,14 @@ jobs:
       - name: Test
         run: |
           printenv
+          
+      - name: Check package version
+        uses: PostHog/check-package-version@v2
+        id: CheckVersion
+      - name: Echo output
+        run: |
+            echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+            echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+            echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+      
+      
