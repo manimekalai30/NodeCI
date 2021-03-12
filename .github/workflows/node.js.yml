@@ -23,6 +23,9 @@ jobs:
       - name: Check package version
         uses: PostHog/check-package-version@v2
         id: CheckVersion
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
       - name: Echo output
         run: |
             echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
