@@ -33,5 +33,6 @@ jobs:
             echo "Committed version: ${{ steps.CheckVersion.outputs.committed-version }}"
             echo "Published version: ${{ steps.CheckVersion.outputs.published-version }}"
             echo "Is new version: ${{ steps.CheckVersion.outputs.is-new-version }}"
-      
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
