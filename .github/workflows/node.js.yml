@@ -20,9 +20,9 @@ jobs:
         with:
           issue-number: ${{ github.event.number }}
           comment-author: github-actions[bot]
-      - run: |
-          echo ${{ steps.fc.outputs.comment-id }}
-          echo ${{ steps.fc.outputs.comment-body }}
+#       - run: |
+#           echo ${{ steps.fc.outputs.comment-id }}
+#           echo ${{ steps.fc.outputs.comment-body }}
       - name: Create Release
         uses: actions/create-release@v1
         env:
