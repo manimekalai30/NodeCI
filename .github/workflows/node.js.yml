@@ -19,7 +19,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          comment-author: manimekalai30
+          comment-author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
