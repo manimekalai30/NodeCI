@@ -10,7 +10,10 @@ function multiplication(arg1,arg2){
     // Multiplication operation
     return arg1 * arg2;
 };
-
+function division(arg1,arg2){
+    // Multiplication operation
+    return arg1 / arg2;
+};
 function leapYear(year){
     let IsLeapYear = false;
     // Check leap year or not
@@ -31,3 +34,4 @@ function leapYear(year){
 module.exports.addition = addition;
 module.exports.multiplication = multiplication;
 module.exports.leapYear = leapYear;
+module.exports.division = division;
