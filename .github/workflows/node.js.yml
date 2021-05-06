@@ -19,7 +19,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          comment-author: github-actions
+          comment-author: nodejs-github-bot
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
