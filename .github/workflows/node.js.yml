@@ -13,4 +13,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: etcdigital/pull-request-changelog@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: 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
