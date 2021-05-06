@@ -14,3 +14,12 @@ jobs:
       - uses: etcdigital/pull-request-changelog@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-author: github-actions
+      - run: |
+          echo ${{ steps.fc.outputs.comment-id }}
+          echo ${{ steps.fc.outputs.comment-body }}
