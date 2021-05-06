@@ -1,30 +1,16 @@
-name: Publish a package
+name: Changelog Generator
 on:
-  push:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize]
+
 jobs:
-  run-build-test-lint-publish-package:
-#     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.base.ref == 'main'
+  changelog:
+    name: Chanegelog Generator
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: etcdigital/pull-request-changelog@master
         with:
-          node-version: '12'
-
-      - name: Test
-        run: |
-          printenv
-          
-      - name: Get package History
-        uses: flood-io/is-published-on-npm@v1
-        id: isPublished
-
-      - if: ${{ steps.isPublished.outputs.published}} == 'false'
-        name: Print
-        run: |
-         echo ${{ steps.isPublished.outputs.published}}
+          token: ${{ secrets.GITHUB_TOKEN }}
