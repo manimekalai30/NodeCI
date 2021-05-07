@@ -19,12 +19,13 @@ jobs:
           comment-author: github-actions[bot]
           direction: last
 
-      - uses: Slashgear/action-check-pr-title@1.0.0
+      - uses: dylanvann/check-pull-request-title@v1
         with:
-          regex: '([a-z])+' # Regex the title should match.
+          # Match pull request titles in the form UI-1234 - Message.
+          pattern: '([a-z])+\/([a-z])+'
         id: TitleId
         
-      - run: echo ${{ steps.TitleId }}
+      - run: echo ${{ steps.TitleId.output }}
       
       - name: Create Release
         uses: actions/create-release@v1
