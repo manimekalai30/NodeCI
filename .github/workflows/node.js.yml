@@ -29,7 +29,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ steps.fc.outputs.comment-id }} # Version Get version from package.json
-          release_name: ${{ github.event.changes[title][from] }} # Title
+          release_name: ${{ github.event.changes }} # Title
           body: | # Changes or features in the corresponding release
             ${{ steps.fc.outputs.comment-body }}
           draft: false
