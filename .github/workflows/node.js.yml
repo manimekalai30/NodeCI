@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo ${{ github.event.pull_request.base.ref }}
+      - run: echo ${{ github.base_ref }}
       - name: Generate Change logs
         uses: bala-raj/pull-request-changelog@master
         with:
