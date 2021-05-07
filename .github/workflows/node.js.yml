@@ -19,10 +19,13 @@ jobs:
           comment-author: github-actions[bot]
           direction: last
 
-      - run: |
-          echo ${{ github.ref }}
-#           echo ${{ steps.fc.outputs.comment-body }}
-
+      - uses: Slashgear/action-check-pr-title@1.0.0
+        with:
+          regex: '([a-z])+' # Regex the title should match.
+        id: TitleId
+        
+      - run: echo ${{ steps.TitleId }}
+      
       - name: Create Release
         uses: actions/create-release@v1
         env:
