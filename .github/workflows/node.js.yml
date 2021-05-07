@@ -7,9 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: etcdigital/pull-request-changelog@master
+      - uses: bala-raj/pull-request-changelog@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          branch:  ${{ github.event.pull_request.base.ref }}
       - name: Find Comment
         uses: peter-evans/find-comment@v1
         id: fc
@@ -21,13 +22,14 @@ jobs:
 #       - run: |
 #           echo ${{ steps.fc.outputs.comment-id }}
 #           echo ${{ steps.fc.outputs.comment-body }}
+
       - name: Create Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.fc.outputs.comment-id }} # Get version from package.json
-          release_name: ${{ steps.fc.outputs.comment-id }}
+          tag_name: ${{ steps.fc.outputs.comment-id }} # Version Get version from package.json
+          release_name: ${{ github.event.changes }} # Title
           body: | # Changes or features in the corresponding release
             ${{ steps.fc.outputs.comment-body }}
           draft: false
