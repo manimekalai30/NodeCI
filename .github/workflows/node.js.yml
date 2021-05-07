@@ -28,6 +28,7 @@ jobs:
           .: '-'
       - run: echo ${{ steps.sub.outputs.result }}
           
+          
 #       - run: echo ${{ steps.versionString.outputs.replaced}}
             
 #       - name: Create Release
