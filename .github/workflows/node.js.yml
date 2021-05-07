@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: bala-raj/pull-request-changelog@master
+      - if: github.event_name == 'push'
+        name: Generate Change logs
+        uses: bala-raj/pull-request-changelog@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch:  ${{ github.event.pull_request.base.ref }}
