@@ -10,7 +10,7 @@ jobs:
       - uses: bala-raj/pull-request-changelog@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch:  ${{ github.event.base }}
+          branch:  ${{ github.event.pull_request.base.ref }}
       - name: Find Comment
         uses: peter-evans/find-comment@v1
         id: fc
