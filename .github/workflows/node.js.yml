@@ -19,9 +19,8 @@ jobs:
           comment-author: github-actions[bot]
           direction: last
 
-#       - run: |
-#           echo ${{ steps.fc.outputs.comment-id }}
-#           echo ${{ steps.fc.outputs.comment-body }}
+      - run: |
+          echo $GITHUB_EVENT_PATH
 
       - name: Create Release
         uses: actions/create-release@v1
