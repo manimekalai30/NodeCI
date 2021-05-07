@@ -19,7 +19,7 @@ jobs:
           comment-author: github-actions[bot]
           direction: last
         
-      - run: echo ${{ github.event.pull_request.payload }}
+      - run: echo ${{ github.event.pull_request.title }}
 
       - name: Create Release
         uses: actions/create-release@v1
