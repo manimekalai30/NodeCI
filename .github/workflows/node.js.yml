@@ -21,14 +21,14 @@ jobs:
         
       - run: echo ${{ github.event.pull_request.title }}
       
-      - uses: frabert/replace-string-action@v1.2
-        id: versionString
+      - uses: bluwy/substitute-string-action@v1
+        id: sub
         with:
-#           pattern: 'Hello, (\w+)!'
-          string: '1.0.1-stage'
-          replace-with: '-'
+          _input-text: '1.0.1-stage'
+          .: '-'
+      - run: echo ${{ steps.sub.outputs.result }}
           
-      - run: echo ${{ steps.versionString.outputs.replaced}}
+#       - run: echo ${{ steps.versionString.outputs.replaced}}
             
 #       - name: Create Release
 #         uses: actions/create-release@v1
