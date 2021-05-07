@@ -20,15 +20,24 @@ jobs:
           direction: last
         
       - run: echo ${{ github.event.pull_request.title }}
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      
+      - uses: frabert/replace-string-action@v1.2
+        id: versionString
         with:
-          tag_name: ${{ steps.fc.outputs.comment-id }} # Version Get version from package.json
-          release_name: ${{ github.event.changes }} # Title
-          body: | # Changes or features in the corresponding release
-            ${{ steps.fc.outputs.comment-body }}
-          draft: false
-          prerelease: false # This is not a prerelease so set false
+#           pattern: 'Hello, (\w+)!'
+          string: '1.0.1-stage'
+          replace-with: '.,-'
+          
+      - run: echo ${{ steps.versionString.outputs}}
+            
+#       - name: Create Release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#         with:
+#           tag_name: ${{ steps.fc.outputs.comment-id }} # Version Get version from package.json
+#           release_name: ${{ github.event.changes }} # Title
+#           body: | # Changes or features in the corresponding release
+#             ${{ steps.fc.outputs.comment-body }}
+#           draft: false
+#           prerelease: false # This is not a prerelease so set false
