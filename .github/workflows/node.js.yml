@@ -20,7 +20,7 @@ jobs:
           direction: last
 
       - run: |
-          echo ${{ toJson(github) }}
+          echo ${{ github.ref }}
 #           echo ${{ steps.fc.outputs.comment-body }}
 
       - name: Create Release
