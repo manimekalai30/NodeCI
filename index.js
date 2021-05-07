@@ -37,7 +37,7 @@ function leapYear(year){
 };
 
 function calculate(year){
-    console.log("Executed")
+    console.log("Executed");
     let IsLeapYear = false;
     // Check leap year or not
     if(year%4 == 0){
