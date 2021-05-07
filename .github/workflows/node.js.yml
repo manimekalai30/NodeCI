@@ -28,7 +28,7 @@ jobs:
           string: '1.0.1-stage'
           replace-with: '.,-'
           
-      - run: echo ${{ steps.versionString.outputs}}
+      - run: echo ${{ steps.versionString.outputs.string}}
             
 #       - name: Create Release
 #         uses: actions/create-release@v1
