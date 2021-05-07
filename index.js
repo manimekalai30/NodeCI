@@ -19,6 +19,25 @@ function modulo(arg1,arg2){
     return arg1 % arg2;
 };
 function leapYear(year){
+    console.log("Executed")
+    let IsLeapYear = false;
+    // Check leap year or not
+    if(year%4 == 0){
+        if(year%100 == 0){
+            if(year%400 == 0){
+                IsLeapYear = true;
+            }
+        }else{
+            IsLeapYear = true;
+        }
+    }else{
+        IsLeapYear = false;
+    }
+    return IsLeapYear;
+};
+
+function calculate(year){
+    console.log("Executed");
     let IsLeapYear = false;
     // Check leap year or not
     if(year%4 == 0){
