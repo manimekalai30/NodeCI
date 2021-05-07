@@ -7,9 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: etcdigital/pull-request-changelog@master
+      - uses: bala-raj/pull-request-changelog@mbranch
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'dev'
       - name: Find Comment
         uses: peter-evans/find-comment@v1
         id: fc
