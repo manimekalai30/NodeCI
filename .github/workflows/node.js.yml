@@ -25,8 +25,8 @@ jobs:
         id: versionString
         with:
 #           pattern: 'Hello, (\w+)!'
-          string: '1.0.1-stage'
-          replace-with: '.,-'
+          string: '1.0.1stage'
+          replace-with: '. -'
           
       - run: echo ${{ steps.versionString.outputs.replaced}}
             
