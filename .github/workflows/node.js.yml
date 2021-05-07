@@ -20,7 +20,8 @@ jobs:
           direction: last
 
       - run: |
-          echo $GITHUB_EVENT_PATH
+          echo echo ${{ toJson(github.event) }}
+#           echo ${{ steps.fc.outputs.comment-body }}
 
       - name: Create Release
         uses: actions/create-release@v1
