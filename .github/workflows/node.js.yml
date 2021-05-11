@@ -1,30 +1,47 @@
-name: Publish a package
+name: Changelog Generator
 on:
-  push:
+  pull_request:
 jobs:
-  run-build-test-lint-publish-package:
-#     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.base.ref == 'main'
+  changelog:
+    name: Chanegelog Generator
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - run: echo ${{ github.event.pull_request.base.ref }}
+      - run: echo ${{ github.base_ref }}
+      - name: Generate Change logs
+        uses: bala-raj/pull-request-changelog@master
         with:
-          node-version: '12'
-
-      - name: Test
-        run: |
-          printenv
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch:  ${{ github.event.pull_request.base.ref }}
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-author: github-actions[bot]
+          direction: last
+        
+      - run: echo ${{ github.event.pull_request.title }}
+      
+      - uses: bluwy/substitute-string-action@v1
+        id: sub
+        with:
+          _input-text: '1.0.1-stage'
+          .: '-'
+      - run: echo ${{ steps.sub.outputs.result }}
           
-      - name: Get package History
-        uses: flood-io/is-published-on-npm@v1
-        id: isPublished
-
-      - if: ${{ steps.isPublished.outputs.published}} == 'false'
-        name: Print
-        run: |
-         echo ${{ steps.isPublished.outputs.published}}
+          
+#       - run: echo ${{ steps.versionString.outputs.replaced}}
+            
+#       - name: Create Release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#         with:
+#           tag_name: ${{ steps.fc.outputs.comment-id }} # Version Get version from package.json
+#           release_name: ${{ github.event.changes }} # Title
+#           body: | # Changes or features in the corresponding release
+#             ${{ steps.fc.outputs.comment-body }}
+#           draft: false
+#           prerelease: false # This is not a prerelease so set false
