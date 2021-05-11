@@ -29,7 +29,7 @@ jobs:
         id: sub
         with:
           _input-text: '1.0.1-stage'
-          .: '-'
+          .: '-' # Replace action
       - run: echo ${{ steps.sub.outputs.result }}
           
           
