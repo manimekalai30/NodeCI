@@ -16,9 +16,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch:  ${{ github.event.pull_request.base.ref }}
-      - run: node ./index.js
-        id: hello
-      - run: ${{ steps.hello.outputs.pjson.version}}
+      - run: echo github.event_name
+      - run: echo event.action
       - name: Find Comment
         uses: peter-evans/find-comment@v1
         id: fc
