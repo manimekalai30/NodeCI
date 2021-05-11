@@ -1,6 +1,8 @@
 name: Changelog Generator
 on:
+  # Trigger workflow when a pull request is created/updated/merged
   pull_request:
+    types: [opened,synchronize,closed]
 jobs:
   changelog:
     name: Chanegelog Generator
@@ -28,7 +30,7 @@ jobs:
         id: sub
         with:
           _input-text: '1.0.1-stage'
-          .: '-'
+          .: '-' # Replace action
       - run: echo ${{ steps.sub.outputs.result }}
           
           
