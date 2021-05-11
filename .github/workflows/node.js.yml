@@ -17,9 +17,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch:  ${{ github.event.pull_request.base.ref }}
       - run: echo ${{ github.event.pull_request.merged }} 
-      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         run: echo ${{ github.event_name }} 
-      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         run: echo ${{ github.event.action }} 
         
       - name: Find Comment
