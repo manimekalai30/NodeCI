@@ -10,28 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo ${{ github.event.pull_request.base.ref }}
-      - run: echo ${{ github.base_ref }}
-      - name: Generate Change logs
-        uses: bala-raj/pull-request-changelog@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch:  ${{ github.event.pull_request.base.ref }}
-      - run: echo ${{ github.event.pull_request.merged }} 
-      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-        run: echo ${{ github.event_name }}  
-      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-        run: echo ${{ github.event.action }} 
+#       - run: echo ${{ github.event.pull_request.base.ref }}
+#       - run: echo ${{ github.base_ref }}
+#       - name: Generate Change logs
+#         uses: bala-raj/pull-request-changelog@master
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           branch:  ${{ github.event.pull_request.base.ref }}
+#       - run: echo ${{ github.event.pull_request.merged }} 
+#       - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+#         run: echo ${{ github.event_name }}  
+#       - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+#         run: echo ${{ github.event.action }} 
         
-      - name: Find Comment
-        uses: peter-evans/find-comment@v1
-        id: fc
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: github-actions[bot]
-          direction: last
+#       - name: Find Comment
+#         uses: peter-evans/find-comment@v1
+#         id: fc
+#         with:
+#           issue-number: ${{ github.event.number }}
+#           comment-author: github-actions[bot]
+#           direction: last
         
-      - run: echo ${{ github.event.pull_request.title }}
+#       - run: echo ${{ github.event.pull_request.title }}
       
       - uses: bluwy/substitute-string-action@v1
         id: sub
