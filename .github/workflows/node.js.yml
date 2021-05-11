@@ -10,16 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Get package History
-        uses: flood-io/is-published-on-npm@v1
-        id: isPublished
-
-      # If the current package.json version is not published earlier then Publish and create package release
-      - if: steps.isPublished.outputs.published == 'false' &&  github.event.pull_request.merged == true 
-        run: |
-          echo 'hi'
-        
       - run: echo ${{ github.event.pull_request.base.ref }}
       - run: echo ${{ github.base_ref }}
       - name: Generate Change logs
@@ -46,10 +36,13 @@ jobs:
       - uses: bluwy/substitute-string-action@v1
         id: sub
         with:
-          _input-text: '1.0.1-stage'
+          _input-text: '1.0.1'
           .: '-' # Replace action
-      - run: echo ${{ steps.sub.outputs.result }}
           
+      - run: echo ${{ steps.sub.outputs.result }}
+      - if: steps.sub.outputs.result == '1-0-1'
+        run: |
+          echo 'hi'
           
 #       - run: echo ${{ steps.versionString.outputs.replaced}}
             
