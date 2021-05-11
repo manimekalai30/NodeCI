@@ -1,7 +1,7 @@
 name: Changelog Generator
 on:
   pull_request:
-    types: [opened, closed, edited]
+    types: [opened, closed, synchronize]
 jobs:
   changelog:
     name: Chanegelog Generator
