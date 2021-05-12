@@ -8,9 +8,6 @@
     "type": "git",
     "url": "git+https://github.com/Manimekalai-Devaraj/arithmetic-operations"
   },
-  "dependencies": {
-    "@manimekalai30/arithmetic-operations": "1.0.4"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
