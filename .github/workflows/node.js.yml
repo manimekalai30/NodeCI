@@ -12,8 +12,10 @@ jobs:
         node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: nyaa8/package-version@v1
-        with:
-          path: 'uwu/package.json' # Optional
-          follow-symlinks: 'false' # Optional
-      - run: echo ${{ env.PACKAGE_VERSION }}
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.0.6
+        
+      # From now you can access the version
+      - name: Print version
+        run: echo ${{ steps.extract_version.outputs.version }}
