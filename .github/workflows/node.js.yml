@@ -10,50 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#       - run: echo ${{ github.event.pull_request.base.ref }}
-#       - run: echo ${{ github.base_ref }}
-#       - name: Generate Change logs
-#         uses: bala-raj/pull-request-changelog@master
-#         with:
-#           token: ${{ secrets.GITHUB_TOKEN }}
-#           branch:  ${{ github.event.pull_request.base.ref }}
-#       - run: echo ${{ github.event.pull_request.merged }} 
-#       - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-#         run: echo ${{ github.event_name }}  
-#       - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-#         run: echo ${{ github.event.action }} 
-        
-#       - name: Find Comment
-#         uses: peter-evans/find-comment@v1
-#         id: fc
-#         with:
-#           issue-number: ${{ github.event.number }}
-#           comment-author: github-actions[bot]
-#           direction: last
-        
-#       - run: echo ${{ github.event.pull_request.title }}
-      - run: echo ${{ github.workspace }}
-      - uses: bluwy/substitute-string-action@v1
-        id: sub
+      - name: Generate Change logs
+        uses: bala-raj/pull-request-changelog@master
         with:
-          _input-text: '1.0.1'
-          .: '-' # Replace action
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch:  ${{ github.event.pull_request.base.ref }}
           
-      - run: echo ${{ steps.sub.outputs.result }}
-      - if: steps.sub.outputs.result == '1-0-1'
-        run: |
-          echo 'hi'
+      - if: ${{ steps.isPublished.outputs.published }} == false 
+        name: Get Change logs from Comment
+        uses: peter-evans/find-comment@v1
+        id: fetchComment
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-author: github-actions[bot]
+          direction: last
           
-#       - run: echo ${{ steps.versionString.outputs.replaced}}
-            
-#       - name: Create Release
-#         uses: actions/create-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#         with:
-#           tag_name: ${{ steps.fc.outputs.comment-id }} # Version Get version from package.json
-#           release_name: ${{ github.event.changes }} # Title
-#           body: | # Changes or features in the corresponding release
-#             ${{ steps.fc.outputs.comment-body }}
-#           draft: false
-#           prerelease: false # This is not a prerelease so set false
+      - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+        run: echo ${{ github.event.pull_request.base.ref }}
