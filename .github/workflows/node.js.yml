@@ -11,10 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: Install Dependencies
+        run: |
+          echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} >> ~/.npmrc
+          npm install
+          
       - name: Get package History
         uses: flood-io/is-published-on-npm@v1
         id: isPublished
+        
       - run: echo ${{ steps.isPublished.outputs.published }}
+      
 #       - run: echo ${{ github.event.pull_request.base.ref }}
 #       - run: echo ${{ github.base_ref }}
 #       - name: Generate Change logs
