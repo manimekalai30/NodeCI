@@ -15,16 +15,14 @@ jobs:
 #           token: ${{ secrets.GITHUB_TOKEN }}
 #           branch:  ${{ github.event.pull_request.base.ref }}
           
-      - if: ${{ steps.isPublished.outputs.published }} == false 
-        name: Get Change logs from Comment
-        uses: peter-evans/find-comment@v1
-        id: fetchComment
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: github-actions[bot]
-          direction: last
+#       - if: ${{ steps.isPublished.outputs.published }} == false 
+#         name: Get Change logs from Comment
+#         uses: peter-evans/find-comment@v1
+#         id: fetchComment
+#         with:
+#           issue-number: ${{ github.event.number }}
+#           comment-author: github-actions[bot]
+#           direction: last
           
-      - run: echo ${{ steps.fetchComment.outputs.comment-id == '839464082' }} && ${{ github.event_name == 'pull_request' }} && ${{ github.event.pull_request.merged == 'true' }}
-      - run: echo ${{ steps.fetchComment.outputs.comment-id }} github.event_name == 'pull_request' github.event.pull_request.merged == 'true'
-      - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
-        run: echo inside
+      - if: false  && fasle && true
+        name: Check Condition
