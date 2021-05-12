@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set Env Variable
+        env:
+          isPublished : true
+          merged : true
+          event: 'pull_request'
           
-      - if: (false && fasle && true)
-        run: |
-          echo Check Condition
+      - run: printenv
