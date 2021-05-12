@@ -19,3 +19,12 @@ jobs:
       # From now you can access the version
       - name: Print version
         run: echo ${{ steps.extract_version.outputs.version }}
+        
+      - name: Check package version
+        id: cpv
+        uses: PostHog/check-package-version@v2
+
+      - name: Echo versions
+        run: |
+            echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+            echo "Published version: ${{ steps.cpv.outputs.published-version }}"
