@@ -11,11 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Install Dependencies
-        run: |
-          echo //npm.pkg.github.com/:_authToken=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 >> ~/.npmrc
-          npm install
-          
       - name: Get package History
         uses: flood-io/is-published-on-npm@v1
         id: isPublished
