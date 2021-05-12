@@ -1,6 +1,6 @@
 {
   "name": "@manimekalai30/arithmetic-operations",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "description": "A simple module to do some arithmetic operations. This npm packages developed while learning about the npm packages.",
   "main": "index.js",
   "homepage": "https://github.com/Manimekalai-Devaraj/arithmetic-operations",
