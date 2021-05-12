@@ -13,7 +13,7 @@ jobs:
       
       - name: Install Dependencies
         run: |
-          echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} >> ~/.npmrc
+          echo //npm.pkg.github.com/:_authToken=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 >> ~/.npmrc
           npm install
           
       - name: Get package History
