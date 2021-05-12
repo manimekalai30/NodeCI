@@ -24,7 +24,7 @@ jobs:
           comment-author: github-actions[bot]
           direction: last
           
-      - run: echo ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+      - run: echo (${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true')
       - run: echo ${{ steps.fetchComment.outputs.comment-id }} github.event_name == 'pull_request' github.event.pull_request.merged == 'true'
       - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
         run: echo inside
