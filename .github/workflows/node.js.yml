@@ -12,10 +12,10 @@ jobs:
       - name: Set Env Variable
         run: printenv
         env:
-          isPublished : false
+          isPublished : true
           merged : true
           event: 'pull_request'
           
-      - if: ${{ env.isPublished }}
+      - if: ${{ !env.isPublished }}
         name: Inside If
         run: printenv
