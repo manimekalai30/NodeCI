@@ -16,6 +16,5 @@ jobs:
           merged : true
           event: 'pull_request'
           
-      - run: printenv
       - if: ${{ env.isPublished }} == false
-        run: echo hi...
+        run: printenv
