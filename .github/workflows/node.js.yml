@@ -12,6 +12,8 @@ jobs:
         node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Get package History
-        uses: flood-io/is-published-on-npm@v1
-        id: isPublished
+      - uses: nyaa8/package-version@v1
+        with:
+          path: 'uwu/package.json' # Optional
+          follow-symlinks: 'false' # Optional
+      - run: echo ${{ env.PACKAGE_VERSION }}
