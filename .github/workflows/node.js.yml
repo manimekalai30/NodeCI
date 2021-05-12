@@ -17,3 +17,5 @@ jobs:
           event: 'pull_request'
           
       - run: printenv
+      - if: ${isPublished} == false && ${merged} == true && ${event} == 'pull_request'
+        run: echo hi...
