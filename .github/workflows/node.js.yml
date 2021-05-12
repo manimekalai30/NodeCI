@@ -25,4 +25,4 @@ jobs:
 #           direction: last
           
       - if: false  && fasle && true
-        name: Check Condition
+        run: echo Check Condition
