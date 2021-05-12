@@ -12,7 +12,7 @@ jobs:
       - name: Set Env Variable
         run: printenv
         env:
-          isPublished : true
+          isPublished : false
           merged : true
           event: 'pull_request'
           
