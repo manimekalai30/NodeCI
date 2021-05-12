@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
           
-      - if: false && fasle && true
+      - if: (false && fasle && true)
         run: |
           echo Check Condition
