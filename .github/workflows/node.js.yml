@@ -4,18 +4,13 @@ on:
   pull_request:
     types: [opened,synchronize,closed]
 jobs:
-  changelog:
-    name: Chanegelog Generator
+  un-build-test-lint-publish-package:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Set Env Variable
-        run: printenv
-        env:
-          isPublished : false
-          merged : true
-          event: 'pull_request'
-          
-      - if: ${{ !env.isPublished }}
-        name: Inside If
-        run: printenv
+      - name: Get package History
+        uses: flood-io/is-published-on-npm@v1
+        id: isPublished
