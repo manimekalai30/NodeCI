@@ -1,12 +1,15 @@
 name: Changelog Generator
 on:
+  push:
+  # Trigger workflow when a pull request is created/updated/merged
   pull_request:
-    types: [opened, reopened, synchronize]
-
+    types: [opened,synchronize,closed]
 jobs:
-  changelog:
-    name: Chanegelog Generator
+  un-build-test-lint-publish-package:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
       - name: Change log
