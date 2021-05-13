@@ -1,6 +1,5 @@
 name: Changelog Generator
 on:
-  push:
   # Trigger workflow when a pull request is created/updated/merged
   pull_request:
     types: [opened,synchronize,closed]
@@ -12,6 +11,7 @@ jobs:
         node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
+      - run: echo ${{ github.event.pull_request.base.ref }}
       - name: Change log
         uses: bala-raj/pull-request-changelog@master
         with:
