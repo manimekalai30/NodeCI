@@ -22,4 +22,5 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          cd repo-2
           npm install
