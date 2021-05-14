@@ -1,0 +1,24 @@
+{
+  "name": "@manimekalai30/arithmetic-operations",
+  "version": "1.0.5",
+  "description": "A simple module to do some arithmetic operations. This npm packages developed while learning about the npm packages.",
+  "main": "index.js",
+  "homepage": "https://github.com/Manimekalai-Devaraj/arithmetic-operations",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manimekalai-Devaraj/arithmetic-operations"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "github",
+    "arithmetic operations"
+  ],
+  "author": "Manimekalai<mani.devaraj@anywhere.co>",
+  "license": "ISC"
+}

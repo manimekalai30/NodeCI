@@ -1,0 +1,19 @@
+  
+name: "repo-1"
+
+on:
+  pull_request:
+    types: [opened,synchronize,closed]
+
+jobs:
+  run-build-test-lint-publish-package:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          npm install
