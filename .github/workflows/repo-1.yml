@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Inside repo-1
+        run: echo inside repo-1
+
       - name: Install Dependencies
         run: |
           npm install
