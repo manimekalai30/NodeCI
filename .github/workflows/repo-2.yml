@@ -25,3 +25,5 @@ jobs:
           cd repo-2
           npm install
           ls -a
+          cd node_modules
+          ls -a
