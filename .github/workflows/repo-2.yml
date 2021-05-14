@@ -4,6 +4,9 @@ name: "repo-2"
 on:
   pull_request:
     types: [opened,synchronize,closed]
+    paths:
+      - "repo-2/**"
+      - ".github/workflows/repo-2.yml"
 
 jobs:
   run-build-test-lint-publish-package:

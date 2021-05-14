@@ -4,7 +4,9 @@ name: "repo-1"
 on:
   pull_request:
     types: [opened,synchronize,closed]
-
+    paths:
+      - "repo-1/**"
+      - ".github/workflows/repo-1.yml"
 jobs:
   run-build-test-lint-publish-package:
     runs-on: ubuntu-latest

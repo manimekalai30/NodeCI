@@ -4,7 +4,6 @@ name: "{{ROUTE}}"
 on:
   pull_request:
     types: [opened,synchronize,closed]
-    branches: [main]
     paths:
       - "{{ROUTE}}/**"
       - ".github/workflows/{{ROUTE}}.yml"
