@@ -24,3 +24,4 @@ jobs:
         run: |
           cd repo-2
           npm install
+          ls -a
