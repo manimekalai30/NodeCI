@@ -19,7 +19,7 @@ function modulo(arg1,arg2){
     return arg1 % arg2;
 };
 function leapYear(year){
-    console.log("Executed...");
+    console.log("Executed...!");
     let IsLeapYear = false;
     // Check leap year or not
     if(year%4 == 0){
