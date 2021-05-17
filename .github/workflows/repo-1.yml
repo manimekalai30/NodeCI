@@ -1,5 +1,5 @@
   
-name: "repo-1"
+name: repo-1
 
 on:
   pull_request:
