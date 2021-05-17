@@ -23,7 +23,9 @@ jobs:
           ls -a
           cd node_modules
           ls -a
-      - name: Delete Branch
-        uses: SvanBoxel/delete-merged-branch@main
+          
+      - name: Delete merged branch
+        uses: koj-co/delete-merged-action@master
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
