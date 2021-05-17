@@ -23,3 +23,7 @@ jobs:
           ls -a
           cd node_modules
           ls -a
+      - name: Delete Branch
+        uses: SvanBoxel/delete-merged-branch@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
