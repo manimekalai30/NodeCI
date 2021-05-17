@@ -4,9 +4,6 @@ name: "repo-1"
 on:
   pull_request:
     types: [opened,synchronize,closed]
-    paths:
-      - "repo-1/**"
-      - ".github/workflows/repo-1.yml"
 jobs:
   run-build-test-lint-publish-package:
     runs-on: ubuntu-latest
@@ -16,6 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Inside repo-1
+        run: echo inside repo-1
+
       - name: Install Dependencies
         run: |
+          cd repo-1
           npm install
+          ls -a
+          cd node_modules
+          ls -a
+          
+      - name: Delete merged branch
+        uses: koj-co/delete-merged-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
