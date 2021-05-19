@@ -25,7 +25,7 @@ jobs:
           ls -a
           
       - name: CWD
-        run: la -a
+        run: ls -a
         
       - name: CWD
         run: pwd
