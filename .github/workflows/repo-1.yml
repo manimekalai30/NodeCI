@@ -24,17 +24,19 @@ jobs:
           cd node_modules
           ls -a
           
-      - name: CWD
-        run: ls -a
+      - run: curl --silent "https://api.github.com/repos/$1/releases/latest"
+      
+#       - name: CWD
+#         run: ls -a
         
-      - name: CWD
-        run: pwd
+#       - name: CWD
+#         run: pwd
           
-      - name: Check
-        id: check
-        uses: rzane/is-unpublished@v0.3.3
-        with:
-          cwd: ./repo-1/package.json
+#       - name: Check
+#         id: check
+#         uses: rzane/is-unpublished@v0.3.3
+#         with:
+#           cwd: ./repo-1/package.json
           
-      - run: echo ${{ steps.check.outputs.is-unpublished == 'true' }}
-      - run: echo ${{ steps.check.outputs.version}}      
+#       - run: echo ${{ steps.check.outputs.is-unpublished == 'true' }}
+#       - run: echo ${{ steps.check.outputs.version}}      
