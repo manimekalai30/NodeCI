@@ -30,4 +30,8 @@ jobs:
           branches: "!mono-repo"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Get package History
+        uses: cd repo-1 && flood-io/is-published-on-npm@v1
+        id: isPublished
 
