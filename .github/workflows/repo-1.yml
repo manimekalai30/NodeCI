@@ -23,11 +23,12 @@ jobs:
           ls -a
           cd node_modules
           ls -a
+          
       - name: Check
         id: check
         uses: rzane/is-unpublished@v0.3.3
-#         with:
-#           cwd: ${{ github.workspace }}/repo-1/package.json
+        with:
+          cwd: repo-1/package.json
           
       - run: echo ${{ steps.check.outputs.is-unpublished == 'true' }}
       - run: echo ${{ steps.check.outputs.version}}      
