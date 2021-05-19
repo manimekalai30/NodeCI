@@ -16,15 +16,15 @@ jobs:
       - name: Inside repo-1
         run: echo inside repo-1
 
-      - name: Install Dependencies
-        run: |
-          cd repo-1
-          npm install
-          ls -a
-          cd node_modules
-          ls -a
+#       - name: Install Dependencies
+#         run: |
+#           cd repo-1
+#           npm install
+#           ls -a
+#           cd node_modules
+#           ls -a
           
-      - run: curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name":"\K.*?(?=")'
+      - run: curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r .version
       
 #       - name: CWD
 #         run: ls -a
