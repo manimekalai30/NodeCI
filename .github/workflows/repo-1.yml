@@ -26,9 +26,8 @@ jobs:
       - name: Check
         id: check
         uses: rzane/is-unpublished@v0.3.3
-        with:
-          cwd: ${{ github.workspace }}/repo-1/package.json
+#         with:
+#           cwd: ${{ github.workspace }}/repo-1/package.json
           
       - run: echo ${{ steps.check.outputs.is-unpublished == 'true' }}
-
-          ls -a
+      - run: echo ${{ steps.check.outputs.version}}      
