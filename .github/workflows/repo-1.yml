@@ -24,6 +24,12 @@ jobs:
           cd node_modules
           ls -a
           
+      - name: CWD
+        run: la -a
+        
+      - name: CWD
+        run: pwd
+          
       - name: Check
         id: check
         uses: rzane/is-unpublished@v0.3.3
