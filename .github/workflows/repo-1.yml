@@ -23,5 +23,5 @@ jobs:
           ls -a
           cd node_modules
           ls -a
-          
-      - run: ls - a
+      - run: |
+          ls - a
