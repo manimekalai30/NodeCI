@@ -34,7 +34,7 @@ jobs:
         id: check
         uses: rzane/is-unpublished@v0.3.3
         with:
-          cwd: /home/runner/work/arithmetic-operations/arithmetic-operations/repo-1/package.json
+          cwd: ./repo-1/package.json
           
       - run: echo ${{ steps.check.outputs.is-unpublished == 'true' }}
       - run: echo ${{ steps.check.outputs.version}}      
