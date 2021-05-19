@@ -24,19 +24,4 @@ jobs:
 #           cd node_modules
 #           ls -a
           
-      - run: echo curl --silent "https://api.github.com/repos/$1/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'
-      
-#       - name: CWD
-#         run: ls -a
-        
-#       - name: CWD
-#         run: pwd
-          
-#       - name: Check
-#         id: check
-#         uses: rzane/is-unpublished@v0.3.3
-#         with:
-#           cwd: ./repo-1/package.json
-          
-#       - run: echo ${{ steps.check.outputs.is-unpublished == 'true' }}
-#       - run: echo ${{ steps.check.outputs.version}}      
+      - run: echo ${{github.workspace}}
