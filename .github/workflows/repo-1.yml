@@ -24,7 +24,7 @@ jobs:
           cd node_modules
           ls -a
           
-      - run: curl --silent "https://api.github.com/repos/$1/releases/latest"
+      - run: curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name":"\K.*?(?=")'
       
 #       - name: CWD
 #         run: ls -a
