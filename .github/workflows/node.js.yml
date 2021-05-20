@@ -3,10 +3,12 @@ on:
   push:
   pull_request:
     types: [opened,synchronize,closed]
+    
 permissions:
   contents: read
   packages: write
   pull-requests: write
+  
 jobs:
   un-build-test-lint-publish-package:
     runs-on: ubuntu-latest
