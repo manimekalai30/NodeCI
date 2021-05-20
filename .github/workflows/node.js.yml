@@ -15,5 +15,5 @@ jobs:
         run: |
           npm publish
         env:
-          NODE_AUTH_TOKEN: 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
+          NODE_AUTH_TOKEN: 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
 
