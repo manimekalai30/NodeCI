@@ -1,7 +1,6 @@
 name: Changelog Generator
 on:
   push:
-  # Trigger workflow when a pull request is created/updated/merged
   pull_request:
     types: [opened,synchronize,closed]
 jobs:
