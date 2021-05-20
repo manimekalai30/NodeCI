@@ -3,6 +3,10 @@ on:
   push:
   pull_request:
     types: [opened,synchronize,closed]
+permissions:
+  contents: read
+  packages: write
+  pull-requests: write
 jobs:
   un-build-test-lint-publish-package:
     runs-on: ubuntu-latest
@@ -15,5 +19,5 @@ jobs:
         run: |
           npm publish
         env:
-          NODE_AUTH_TOKEN: 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
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
