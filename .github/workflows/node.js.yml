@@ -4,29 +4,57 @@ on:
   pull_request:
     types: [opened,synchronize,closed]
 jobs:
-  changelog:
-    name: Chanegelog Generator
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  version-check:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Setup Registry
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@manimekalai30'
+
+    - name: Publish package
+        run:  npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
+
+    - name: Check package version
+      id: cpv
+      uses: PostHog/check-package-version@v2
+
+    - name: Echo output
+      run: |
+          echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+          echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+          echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+          
+  # changelog:
+  #   name: Chanegelog Generator
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
       
-      - name: Generate Change logs
-        uses: bala-raj/pull-request-changelog@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch:  ${{ github.event.pull_request.base.ref }}
+  #     - name: Generate Change logs
+  #       uses: bala-raj/pull-request-changelog@master
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         branch:  ${{ github.event.pull_request.base.ref }}
           
-      - if: ${{ steps.isPublished.outputs.published }} == false 
-        name: Get Change logs from Comment
-        uses: peter-evans/find-comment@v1
-        id: fetchComment
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: github-actions[bot]
-          direction: last
+  #     - if: ${{ steps.isPublished.outputs.published }} == false 
+  #       name: Get Change logs from Comment
+  #       uses: peter-evans/find-comment@v1
+  #       id: fetchComment
+  #       with:
+  #         issue-number: ${{ github.event.number }}
+  #         comment-author: github-actions[bot]
+  #         direction: last
           
-      - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
-        run: echo ${{ github.event.pull_request.base.ref }}
+  #     - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+  #       run: echo ${{ github.event.pull_request.base.ref }}
         
 #       - run: echo ${{ github.base_ref }}
 #       - name: Generate Change logs
