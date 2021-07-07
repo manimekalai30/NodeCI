@@ -16,9 +16,11 @@ jobs:
       - id: check
         uses: EndBug/version-check@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+#           token: ${{ secrets.GITHUB_TOKEN }}
           file-url: https://npm.pkg.github.com/@manimekalai30/arithmetic-operations
           static-checking: localIsNew
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This gets generated automatically
 
       # - name: Setup Registry
       #   uses: actions/setup-node@v1
