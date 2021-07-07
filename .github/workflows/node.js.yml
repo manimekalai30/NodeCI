@@ -17,9 +17,9 @@ jobs:
         scope: '@manimekalai30'
 
     - name: Publish package
-        run:  npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      run:  npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
 
     - name: Check package version
