@@ -9,12 +9,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup Registry
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-          registry-url: 'https://npm.pkg.github.com'
-          # Defaults to the user or organization that owns the workflow file
-          scope: '@manimekalai30'
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+        registry-url: 'https://npm.pkg.github.com'
+        # Defaults to the user or organization that owns the workflow file
+        scope: '@manimekalai30'
 
     - name: Publish package
         run:  npm publish
