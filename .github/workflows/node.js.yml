@@ -13,13 +13,13 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - id: check
-        uses: EndBug/version-check@v1.1.0
-        with:
-          static-checking: localIsNew
-          file-url: ::before
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This gets generated automatically
+      - name: Check if version has been updated # You can edit this
+        id: check # This will be the reference for getting the outputs
+        uses: EndBug/version-check@v1.1.0 # You can choose the version/branch you prefer
+        with: # You can find more info about inputs below
+          diff-search: true
+          file-name: package.json
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Setup Registry
       #   uses: actions/setup-node@v1
