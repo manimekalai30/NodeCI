@@ -30,7 +30,8 @@ jobs:
         id: cpv
         uses: PostHog/check-package-version@v2
         with:
-          path: https://github.com/manimekalai30/arithmetic-operations/packages/886698
+          path: https://unpkg.com/manimekalai30/arithmetic-operations
+#           path: https://github.com/manimekalai30/arithmetic-operations/packages/886698
 
       - name: Echo output
         run: |
