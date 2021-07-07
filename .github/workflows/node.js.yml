@@ -19,6 +19,10 @@ jobs:
           registry: 'https://npm.pkg.github.com'
           check-version: true
           
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
+          
 #       - name: Check if version has been updated # You can edit this
 #         id: check # This will be the reference for getting the outputs
 #         uses: EndBug/version-check@v1.1.0 # You can choose the version/branch you prefer
