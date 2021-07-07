@@ -24,7 +24,7 @@ jobs:
       - name: Publish package
         run:  npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          NODE_AUTH_TOKEN: "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" 
 
 
       - name: Check package version
