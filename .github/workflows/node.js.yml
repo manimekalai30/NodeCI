@@ -13,7 +13,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - uses: JS-DevTools/npm-publish@v1
+#       - uses: JS-DevTools/npm-publish@v1
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           registry: 'https://npm.pkg.github.com/manimekalai30'
+#           check-version: true
+
+      - name: Publish Package
+        uses: JS-DevTools/npm-publish@v1
+        id: publish
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: 'https://npm.pkg.github.com/manimekalai30'
