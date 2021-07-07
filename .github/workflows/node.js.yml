@@ -30,9 +30,7 @@ jobs:
         id: cpv
         uses: PostHog/check-package-version@v2
         with:
-          path: https://github.com/manimekalai30/arithmetic-operations/packages
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: https://github.com/manimekalai30/arithmetic-operations/packages/886698
 
       - name: Echo output
         run: |
