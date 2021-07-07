@@ -16,7 +16,7 @@ jobs:
       - id: check
         uses: EndBug/version-check@v1
         with:
-          file-url: https://unpkg.com/manimekalai30/arithmetic-operationse@latest/package.json
+          file-url: https://npm.pkg.github.com/@manimekalai30/arithmetic-operations
           static-checking: localIsNew
 
       # - name: Setup Registry
