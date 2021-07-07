@@ -4,33 +4,38 @@ on:
   pull_request:
     types: [opened,synchronize,closed]
 jobs:
-  version-check:
-    - name: Check out repository
-      uses: actions/checkout@v2
+  build-test-report-publish-component:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
 
-    - name: Setup Registry
-      uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
-        registry-url: 'https://npm.pkg.github.com'
-        # Defaults to the user or organization that owns the workflow file
-        scope: '@manimekalai30'
+      - name: Setup Registry
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@manimekalai30'
 
-    - name: Publish package
-      run:  npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      - name: Publish package
+        run:  npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
 
-    - name: Check package version
-      id: cpv
-      uses: PostHog/check-package-version@v2
+      - name: Check package version
+        id: cpv
+        uses: PostHog/check-package-version@v2
 
-    - name: Echo output
-      run: |
-          echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
-          echo "Published version: ${{ steps.cpv.outputs.published-version }}"
-          echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+      - name: Echo output
+        run: |
+            echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+            echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+            echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
           
   # changelog:
   #   name: Chanegelog Generator
