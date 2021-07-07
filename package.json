@@ -16,5 +16,8 @@
     "arithmetic operations"
   ],
   "author": "Manimekalai<mani.devaraj@anywhere.co>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
