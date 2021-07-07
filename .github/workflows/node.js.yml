@@ -16,6 +16,7 @@ jobs:
       - id: check
         uses: EndBug/version-check@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           file-url: https://npm.pkg.github.com/@manimekalai30/arithmetic-operations
           static-checking: localIsNew
 
