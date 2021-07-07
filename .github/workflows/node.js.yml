@@ -13,13 +13,19 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Check if version has been updated # You can edit this
-        id: check # This will be the reference for getting the outputs
-        uses: EndBug/version-check@v1.1.0 # You can choose the version/branch you prefer
-        with: # You can find more info about inputs below
-          diff-search: true
-          file-name: package.json
+      - uses: JS-DevTools/npm-publish@v1
+        with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          registry: 'https://npm.pkg.github.com'
+          check-version: true
+          
+#       - name: Check if version has been updated # You can edit this
+#         id: check # This will be the reference for getting the outputs
+#         uses: EndBug/version-check@v1.1.0 # You can choose the version/branch you prefer
+#         with: # You can find more info about inputs below
+#           diff-search: true
+#           file-name: package.json
+#           token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Setup Registry
       #   uses: actions/setup-node@v1
