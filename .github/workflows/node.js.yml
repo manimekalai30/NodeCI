@@ -13,6 +13,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
+      - id: check
+        uses: EndBug/version-check@v1
+        with:
+          file-url: https://unpkg.com/manimekalai30/arithmetic-operationse@latest/package.json
+          static-checking: localIsNew
+
       # - name: Setup Registry
       #   uses: actions/setup-node@v1
       #   with:
@@ -26,18 +32,18 @@ jobs:
         # env:
         #   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check package version
-        id: cpv
-        uses: PostHog/check-package-version@v2
-        with:
-          path: https://unpkg.com/manimekalai30/arithmetic-operations
-#           path: https://github.com/manimekalai30/arithmetic-operations/packages/886698
+#       - name: Check package version
+#         id: cpv
+#         uses: PostHog/check-package-version@v2
+#         with:
+#           path: https://unpkg.com/manimekalai30/arithmetic-operations
+# #           path: https://github.com/manimekalai30/arithmetic-operations/packages/886698
 
-      - name: Echo output
-        run: |
-            echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
-            echo "Published version: ${{ steps.cpv.outputs.published-version }}"
-            echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+#       - name: Echo output
+#         run: |
+#             echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+#             echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+#             echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
           
   # changelog:
   #   name: Chanegelog Generator
