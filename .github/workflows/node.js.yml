@@ -12,40 +12,63 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        name: 'Get Previous tag'
+        id: previousTag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        name: Get package version
+        id: package-version
+        run: |
+          echo "::set-output name=version::$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
+      
+      - name: Previous Version
+        run : |
+          echo ${{ steps.previousTag.outputs.tag }}
+      
+      - name: Current Version
+        run : |
+          echo ${{ steps.package-version.outputs.version}}
+          
+      # Get the latest generated change logs from comments
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true && ( ${{ steps.package-version.outputs.version}} != ${{ steps.previousTag.outputs.tag }} )
+        run: echo "Hi"
+          
 #       - uses: JS-DevTools/npm-publish@v1
 #         with:
 #           token: ${{ secrets.GITHUB_TOKEN }}
 #           registry: 'https://npm.pkg.github.com/manimekalai30'
 #           check-version: true
 
-      - name: Publish Package
-        uses: JS-DevTools/npm-publish@v1
-        id: publish
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          registry: 'https://npm.pkg.github.com/manimekalai30'
-          check-version: true
+#       - name: Publish Package
+#         uses: JS-DevTools/npm-publish@v1
+#         id: publish
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           registry: 'https://npm.pkg.github.com/manimekalai30'
+#           check-version: true
           
       
-      - run: |
-          echo ${{ steps.publish.outputs.old-version }}
-          echo ${{ steps.publish.outputs.version }}
-          echo ${{ steps.publish.outputs.type }}
+#       - run: |
+#           echo ${{ steps.publish.outputs.old-version }}
+#           echo ${{ steps.publish.outputs.version }}
+#           echo ${{ steps.publish.outputs.type }}
           
-      - uses: actions/checkout@v2.2.0
-        with:
-          fetch-depth: 0
+#       - uses: actions/checkout@v2.2.0
+#         with:
+#           fetch-depth: 0
           
-      - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+#       - name: 'Get Previous tag'
+#         id: previoustag
+#         uses: "WyriHaximus/github-action-get-previous-tag@v1"
+#         with:
+#           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
           
-      - name: Previous Version
-        run : |
-          echo ${{ steps.previoustag.outputs.tag }}
+#       - name: Previous Version
+#         run : |
+#           echo ${{ steps.previoustag.outputs.tag }}
           
 #       - name: Check if version has been updated # You can edit this
 #         id: check # This will be the reference for getting the outputs
