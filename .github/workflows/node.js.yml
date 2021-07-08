@@ -4,29 +4,129 @@ on:
   pull_request:
     types: [opened,synchronize,closed]
 jobs:
-  changelog:
-    name: Chanegelog Generator
+  build-test-report-publish-component:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
       
-      - name: Generate Change logs
-        uses: bala-raj/pull-request-changelog@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch:  ${{ github.event.pull_request.base.ref }}
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        name: 'Get Previous tag'
+        id: previousTag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        name: Get package version
+        id: package-version
+        run: |
+          echo "::set-output name=version::$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
+      
+      - name: Previous Version
+        run : |
+          echo ${{ steps.previousTag.outputs.tag }}
+      
+      - name: Current Version
+        run : |
+          echo ${{ steps.package-version.outputs.version}}
           
-      - if: ${{ steps.isPublished.outputs.published }} == false 
-        name: Get Change logs from Comment
-        uses: peter-evans/find-comment@v1
-        id: fetchComment
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: github-actions[bot]
-          direction: last
+      # Get the latest generated change logs from comments
+      - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true && ( ${{ steps.package-version.outputs.version}} != ${{ steps.previousTag.outputs.tag }} )
+        run: echo "Hi"
           
-      - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
-        run: echo ${{ github.event.pull_request.base.ref }}
+#       - uses: JS-DevTools/npm-publish@v1
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           registry: 'https://npm.pkg.github.com/manimekalai30'
+#           check-version: true
+
+#       - name: Publish Package
+#         uses: JS-DevTools/npm-publish@v1
+#         id: publish
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           registry: 'https://npm.pkg.github.com/manimekalai30'
+#           check-version: true
+          
+      
+#       - run: |
+#           echo ${{ steps.publish.outputs.old-version }}
+#           echo ${{ steps.publish.outputs.version }}
+#           echo ${{ steps.publish.outputs.type }}
+          
+#       - uses: actions/checkout@v2.2.0
+#         with:
+#           fetch-depth: 0
+          
+#       - name: 'Get Previous tag'
+#         id: previoustag
+#         uses: "WyriHaximus/github-action-get-previous-tag@v1"
+#         with:
+#           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+          
+#       - name: Previous Version
+#         run : |
+#           echo ${{ steps.previoustag.outputs.tag }}
+          
+#       - name: Check if version has been updated # You can edit this
+#         id: check # This will be the reference for getting the outputs
+#         uses: EndBug/version-check@v1.1.0 # You can choose the version/branch you prefer
+#         with: # You can find more info about inputs below
+#           diff-search: true
+#           file-name: package.json
+#           token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Setup Registry
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '14.x'
+      #     registry-url: 'https://npm.pkg.github.com'
+      #     # Defaults to the user or organization that owns the workflow file
+      #     scope: '@manimekalai30'
+
+      # - name: Publish package
+      #   run:  npm publish
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#       - name: Check package version
+#         id: cpv
+#         uses: PostHog/check-package-version@v2
+#         with:
+#           path: https://unpkg.com/manimekalai30/arithmetic-operations
+# #           path: https://github.com/manimekalai30/arithmetic-operations/packages/886698
+
+#       - name: Echo output
+#         run: |
+#             echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+#             echo "Published version: ${{ steps.cpv.outputs.published-version }}"
+#             echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+          
+  # changelog:
+  #   name: Chanegelog Generator
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+      
+  #     - name: Generate Change logs
+  #       uses: bala-raj/pull-request-changelog@master
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         branch:  ${{ github.event.pull_request.base.ref }}
+          
+  #     - if: ${{ steps.isPublished.outputs.published }} == false 
+  #       name: Get Change logs from Comment
+  #       uses: peter-evans/find-comment@v1
+  #       id: fetchComment
+  #       with:
+  #         issue-number: ${{ github.event.number }}
+  #         comment-author: github-actions[bot]
+  #         direction: last
+          
+  #     - if: ${{ steps.fetchComment.outputs.comment-id }} && github.event_name == 'pull_request' && github.event.pull_request.merged == 'true'
+  #       run: echo ${{ github.event.pull_request.base.ref }}
         
 #       - run: echo ${{ github.base_ref }}
 #       - name: Generate Change logs
